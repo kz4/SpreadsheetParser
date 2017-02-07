@@ -12,6 +12,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="28" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -26,13 +27,15 @@
         <Label Grid.Row="1" Grid.Column="0" Content="Column:"/>
         <Label Grid.Row="2" Grid.Column="0" Content="Start Row:"/>
         <Label Grid.Row="3" Grid.Column="0" Content="End Row:"/>
+        <Label Grid.Row="4" Grid.Column="0" Content="Number in a Row:"/>
         <TextBox Grid.Column="1" Grid.Row="0" Margin="3" Text="{Binding Path=FileName}" />
         <TextBox Grid.Column="1" Grid.Row="1" Margin="3" Text="{Binding Path=Column}" />
         <TextBox Grid.Column="1" Grid.Row="2" Margin="3" Text="{Binding Path=StartRow}" />
         <TextBox Grid.Column="1" Grid.Row="3" Margin="3" Text="{Binding Path=EndRow}" />
-        <Button Command="{Binding ClickCommand}" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" 
+        <TextBox Grid.Column="1" Grid.Row="4" Margin="3" Text="{Binding Path=NumARow}" />
+        <Button Command="{Binding ClickCommand}" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Right" 
             MinWidth="80" Margin="3" Content="Parse"  />
-        <TextBox Name="myTextBox" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Margin="3"
+        <TextBox Name="myTextBox" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="6" Margin="3"
                  Text="{Binding Path=Result}" PreviewMouseDown="TextBox_PreviewMouseDown"
                  TextWrapping="Wrap"/>
     </Grid>

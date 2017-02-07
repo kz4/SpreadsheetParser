@@ -36,29 +36,58 @@ namespace SpreadsheetParser
         //private bool _canExecute;
         public void MyAction()
         {
-            Microsoft.Office.Interop.Excel.Application xlApp;
-            Microsoft.Office.Interop.Excel.Workbook xlWorkbook;
-            Microsoft.Office.Interop.Excel.Worksheet xlWorksheet;
-            object misValue = System.Reflection.Missing.Value;
+            try
+            {
+                Microsoft.Office.Interop.Excel.Application xlApp;
+                Microsoft.Office.Interop.Excel.Workbook xlWorkbook;
+                Microsoft.Office.Interop.Excel.Worksheet xlWorksheet;
+                object misValue = System.Reflection.Missing.Value;
 
 
-            xlApp = new Microsoft.Office.Interop.Excel.Application();
-            xlWorkbook = xlApp.Workbooks.Open(FileName, 0, true, 5, "", "", true, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
-            xlWorksheet = (Microsoft.Office.Interop.Excel.Worksheet)xlWorkbook.Worksheets.get_Item(1);
+                xlApp = new Microsoft.Office.Interop.Excel.Application();
+                xlWorkbook = xlApp.Workbooks.Open(FileName, 0, true, 5, "", "", true, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
+                xlWorksheet = (Microsoft.Office.Interop.Excel.Worksheet)xlWorkbook.Worksheets.get_Item(1);
 
-            //int startColumn = Header.Cells.Column;
-            //int startRow = header.Cells.Row + 1;
-            int col = ExcelColumnNameToNumber(Column);
-            Microsoft.Office.Interop.Excel.Range startCell = xlWorksheet.Cells[StartRow, col];
-            //int endColumn = startColumn + 1;
-            //int endRow = 65536;
-            Microsoft.Office.Interop.Excel.Range endCell = xlWorksheet.Cells[EndRow, col];
-            Microsoft.Office.Interop.Excel.Range myRange = xlWorksheet.Range[startCell, endCell];
-            System.Array myvalues = (System.Array)myRange.Cells.Value;
-            string[] strArray = myvalues.OfType<object>().Select(o => o.ToString()).ToArray();
+                //int startColumn = Header.Cells.Column;
+                //int startRow = header.Cells.Row + 1;
+                int col = ExcelColumnNameToNumber(Column);
+                Microsoft.Office.Interop.Excel.Range startCell = xlWorksheet.Cells[StartRow, col];
+                //int endColumn = startColumn + 1;
+                //int endRow = 65536;
+                Microsoft.Office.Interop.Excel.Range endCell = xlWorksheet.Cells[EndRow, col];
+                Microsoft.Office.Interop.Excel.Range myRange = xlWorksheet.Range[startCell, endCell];
+                System.Array myvalues = (System.Array)myRange.Cells.Value;
+                string[] strArray = myvalues.OfType<object>().Select(o => o.ToString()).ToArray();
 
-            string res = string.Join(",", strArray.Select(word => string.Format("'{0}'", word)));
-            Result = res;
+                int numARow = Convert.ToInt32(NumARow);
+                StringBuilder sb = new StringBuilder();
+
+                List<string> tempLst = new List<string>();
+                for (int i = 0; i < strArray.Count(); i++)
+                {
+                    tempLst.Add(strArray[i]);
+                    if (i == strArray.Count() - 1)
+                    {
+                        sb.AppendLine(string.Join(",", tempLst.Select(word => string.Format("'{0}'", word))));
+                        tempLst = new List<string>();
+                    }
+                    else if (i != 0 && (i+1) % numARow == 0)
+                    {
+                        sb.AppendLine(string.Join(",", tempLst.Select(word => string.Format("'{0}'", word))) + ",");
+                        tempLst = new List<string>();
+                    }
+                }
+                if (tempLst.Count > 0)
+                {
+                    sb.AppendLine(string.Join(",", tempLst.Select(word => string.Format("'{0}'", word))));
+                }
+                Result = sb.ToString();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public int ExcelColumnNameToNumber(string columnName)
@@ -193,6 +222,21 @@ namespace SpreadsheetParser
                 {
                     _result = value;
                     OnPropertyChanged("Result");
+                }
+            }
+        }
+
+        private string _numARow = "8";
+
+        public string NumARow
+        {
+            get { return _numARow; }
+            set
+            {
+                if (value != _numARow)
+                {
+                    _numARow = value;
+                    OnPropertyChanged("NumARow");
                 }
             }
         }
