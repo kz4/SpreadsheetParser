@@ -4,6 +4,6 @@
 3. Select how many words you want on a single line
 4. Click the Parse the button to parse it
 
-![alt tag](https://github.com/kz4/SpreadsheetParser/tree/master/SpreadsheetParser/Images/SpreadSheet.PNG)
+![alt tag](https://raw.githubusercontent.com/kz4/SpreadsheetParser/master/SpreadsheetParser/Images/SpreadSheet.PNG)
 
-![alt tag](https://github.com/kz4/SpreadsheetParser/tree/master/SpreadsheetParser/Images/Result.PNG)
+![alt tag](https://raw.githubusercontent.com/kz4/SpreadsheetParser/master/SpreadsheetParser/Images/Result.PNG)
