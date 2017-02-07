@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,17 +13,26 @@ namespace SpreadsheetParser
 {
     public class ViewModel : INotifyPropertyChanged
     {
-
         #region Commands
+
+        #region Parse Button
 
         private ICommand _clickCommand;
         public ICommand ClickCommand
         {
             get
             {
-                return _clickCommand ?? (_clickCommand = new CommandHandler(() => MyAction(), true));
+                return _clickCommand ?? (_clickCommand = new CommandHandler(() => MyAction(), CanExecute()));
             }
         }
+
+        private bool CanExecute()
+        {
+            //return !string.IsNullOrEmpty(Column) && !string.IsNullOrEmpty(StartRow) &&
+            //    !string.IsNullOrEmpty(Column) && File.Exists(FileName);
+            return true;
+        }
+
         //private bool _canExecute;
         public void MyAction()
         {
@@ -51,7 +61,7 @@ namespace SpreadsheetParser
             Result = res;
         }
 
-        public static int ExcelColumnNameToNumber(string columnName)
+        public int ExcelColumnNameToNumber(string columnName)
         {
             if (string.IsNullOrEmpty(columnName)) throw new ArgumentNullException("columnName");
 
@@ -67,6 +77,8 @@ namespace SpreadsheetParser
 
             return sum;
         }
+
+        #endregion Parse Button
 
         #region Browse Button
 
@@ -200,6 +212,8 @@ namespace SpreadsheetParser
         #endregion Events
     }
 
+    #region Helper class
+
     public class CommandHandler : ICommand
     {
         private System.Action _action;
@@ -222,4 +236,6 @@ namespace SpreadsheetParser
             _action();
         }
     }
+
+    #endregion Helper class
 }
