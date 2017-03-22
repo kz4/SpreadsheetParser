@@ -11,14 +11,14 @@
 # How to use the ConnectWise API Updater
 1. Click the CW Helper on the main page
 
-2. Enter the 
+2. Fill in the Public Key and Private Key, but if you want, you can also set it by default 
 ```
-PublicKey = "";
-PrivateKey = "";
+private string _publicKey = "";
+private string _privateKey = "";
 ```
-in ConnectWiseService.cs
+in VMCwApiHelper.cs
 
-3. File Name is basically the ConnectWise URL you need to update: for example, in a spreadsheet you have a column of IDs 123, 234, 345. In this case, we will get:
+3. File Name is basically the ConnectWise ticket Id/company Id etc you need to update: for example, in a spreadsheet you have a column of ticket IDs 123, 234, 345. In this case, we will get:
 ```
 https://connectwiselab.yourcompany.com/v4_6_release/apis/3.0/service/tickets/123
 https://connectwiselab.yourcompany.com/v4_6_release/apis/3.0/service/tickets/234

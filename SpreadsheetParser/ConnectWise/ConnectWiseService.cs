@@ -21,11 +21,11 @@ namespace SpreadsheetParser.ConnectWise
 
         #region Constructor
 
-        public ConnectWiseService(string companyId, string baseUrl, string siteUrl)
+        public ConnectWiseService(string companyId, string baseUrl, string siteUrl, string publicKey, string privateKey)
         {
             LogManager.ThrowExceptions = true;
             _log = LogManager.GetCurrentClassLogger();
-            _settings = new ApiSettings(companyId, baseUrl, siteUrl);
+            _settings = new ApiSettings(companyId, baseUrl, siteUrl, publicKey, privateKey);
             InitHttpClient();
         }
 
@@ -197,11 +197,11 @@ namespace SpreadsheetParser.ConnectWise
         public string ApiBaseUri { get; }
         public string TicketsUri { get; }
 
-        public ApiSettings(string companyId, string baseUrl, string siteUrl)
+        public ApiSettings(string companyId, string baseUrl, string siteUrl, string publicKey, string privateKey)
         {
             CompanyId = companyId;
-            PublicKey = "";
-            PrivateKey = "";
+            PublicKey = publicKey;
+            PrivateKey = privateKey;
             ApiBaseUri = baseUrl;
             TicketsUri = siteUrl;
         }

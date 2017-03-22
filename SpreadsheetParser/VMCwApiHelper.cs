@@ -62,7 +62,7 @@ namespace SpreadsheetParser
                 {
                     try
                     {
-                        IConnectWiseService _connectWiseService = new ConnectWiseService(Company, BaseUrl, SiteUrl);
+                        IConnectWiseService _connectWiseService = new ConnectWiseService(Company, BaseUrl, SiteUrl, PublicKey, PrivateKey);
                         //var res = _connectWiseService.ChangeCompany(Convert.ToInt32(ticketId), Value).Result;
                         var res = _connectWiseService.ChangeGenerically(Convert.ToInt32(ticketId), Value, Op, Path).Result;
                     }
@@ -301,6 +301,36 @@ namespace SpreadsheetParser
                 {
                     _company = value;
                     OnPropertyChanged("Company");
+                }
+            }
+        }
+
+        private string _publicKey = "";
+
+        public string PublicKey
+        {
+            get { return _publicKey; }
+            set
+            {
+                if (value != _publicKey)
+                {
+                    _publicKey = value;
+                    OnPropertyChanged("PublicKey");
+                }
+            }
+        }
+
+        private string _privateKey = "";
+
+        public string PrivateKey
+        {
+            get { return _privateKey; }
+            set
+            {
+                if (value != _privateKey)
+                {
+                    _privateKey = value;
+                    OnPropertyChanged("PrivateKey");
                 }
             }
         }
