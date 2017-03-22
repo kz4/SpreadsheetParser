@@ -30,8 +30,6 @@
         <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal">
             <Button Command="{Binding BrowseCommand}" HorizontalAlignment="Left" 
             MinWidth="40" Margin="10 3 3 3" Content="Browse"  />
-            <Button Command="{Binding CwHelperCommand}" HorizontalAlignment="Left" 
-            MinWidth="40" Margin="10 3 3 3" Content="CW Helper"  />
         </StackPanel>
         <Label Grid.Row="1" Grid.Column="0" Content="Column:"/>
         <Label Grid.Row="2" Grid.Column="0" Content="Start Row:"/>

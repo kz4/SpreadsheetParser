@@ -136,25 +136,6 @@ namespace SpreadsheetParser
 
         #endregion Browse Button
 
-        #region CwHelperCommand
-
-        private ICommand _cwHelperCommand;
-        public ICommand CwHelperCommand
-        {
-            get
-            {
-                return _cwHelperCommand ?? (_cwHelperCommand = new CommandHandler(() => HelperAction(), true));
-            }
-        }
-        //private bool _canExecute;
-        public void HelperAction()
-        {
-            CwApiHelper cw = new CwApiHelper();
-            cw.ShowDialog();
-        }
-
-        #endregion CwHelperCommand
-
         #endregion Commands
 
         #region Properties
