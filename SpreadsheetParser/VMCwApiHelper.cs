@@ -1,4 +1,5 @@
 ﻿using Microsoft.Office.Interop.Excel;
+using SpreadsheetParser.ConnectWise;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +12,7 @@ using System.Windows.Input;
 
 namespace SpreadsheetParser
 {
-    public class ViewModel : INotifyPropertyChanged
+    public class VMCwApiHelper : INotifyPropertyChanged
     {
         #region Commands
 
@@ -52,36 +53,24 @@ namespace SpreadsheetParser
                 //int startRow = header.Cells.Row + 1;
                 int col = ExcelColumnNameToNumber(Column);
                 Microsoft.Office.Interop.Excel.Range startCell = xlWorksheet.Cells[StartRow, col];
-                //int endColumn = startColumn + 1;
-                //int endRow = 65536;
                 Microsoft.Office.Interop.Excel.Range endCell = xlWorksheet.Cells[EndRow, col];
                 Microsoft.Office.Interop.Excel.Range myRange = xlWorksheet.Range[startCell, endCell];
                 System.Array myvalues = (System.Array)myRange.Cells.Value;
                 string[] strArray = myvalues.OfType<object>().Select(o => o.ToString()).ToArray();
 
-                int numARow = Convert.ToInt32(NumARow);
-                StringBuilder sb = new StringBuilder();
+                foreach (var ticketId in strArray)
+                {
+                    try
+                    {
+                        IConnectWiseService _connectWiseService = new ConnectWiseService(Company, BaseUrl, SiteUrl);
+                        //var res = _connectWiseService.ChangeCompany(Convert.ToInt32(ticketId), Value).Result;
+                        var res = _connectWiseService.ChangeGenerically(Convert.ToInt32(ticketId), Value, Op, Path).Result;
+                    }
+                    catch (Exception ex)
+                    {
+                    }
 
-                List<string> tempLst = new List<string>();
-                for (int i = 0; i < strArray.Count(); i++)
-                {
-                    tempLst.Add(strArray[i]);
-                    if (i == strArray.Count() - 1)
-                    {
-                        sb.AppendLine(string.Join(",", tempLst.Select(word => string.Format("'{0}'", word))));
-                        tempLst = new List<string>();
-                    }
-                    else if (i != 0 && (i+1) % numARow == 0)
-                    {
-                        sb.AppendLine(string.Join(",", tempLst.Select(word => string.Format("'{0}'", word))) + ",");
-                        tempLst = new List<string>();
-                    }
                 }
-                if (tempLst.Count > 0)
-                {
-                    sb.AppendLine(string.Join(",", tempLst.Select(word => string.Format("'{0}'", word))));
-                }
-                Result = sb.ToString();
             }
             catch (Exception)
             {
@@ -185,7 +174,7 @@ namespace SpreadsheetParser
             }
         }
 
-        private string _column;
+        private string _column = "e";
 
         public string Column
         {
@@ -200,7 +189,7 @@ namespace SpreadsheetParser
             }
         }
 
-        private string _startRow;
+        private string _startRow = "2";
 
         public string StartRow
         {
@@ -215,7 +204,7 @@ namespace SpreadsheetParser
             }
         }
 
-        private string _endRow;
+        private string _endRow = "4";
 
         public string EndRow
         {
@@ -245,17 +234,92 @@ namespace SpreadsheetParser
             }
         }
 
-        private string _numARow = "8";
+        private string _baseUrl = "https://connectwiselab.yourcompany.com/v4_6_release/apis/3.0/";
 
-        public string NumARow
+        public string BaseUrl
         {
-            get { return _numARow; }
+            get { return _baseUrl; }
             set
             {
-                if (value != _numARow)
+                if (value != _baseUrl)
                 {
-                    _numARow = value;
-                    OnPropertyChanged("NumARow");
+                    _baseUrl = value;
+                    OnPropertyChanged("BaseUrl");
+                }
+            }
+        }
+
+        private string _siteUrl = "service/tickets";
+
+        public string SiteUrl
+        {
+            get { return _siteUrl; }
+            set
+            {
+                if (value != _siteUrl)
+                {
+                    _siteUrl = value;
+                    OnPropertyChanged("SiteUrl");
+                }
+            }
+        }
+
+        private string _path = "company";
+
+        public string Path
+        {
+            get { return _path; }
+            set
+            {
+                if (value != _path)
+                {
+                    _path = value;
+                    OnPropertyChanged("Path");
+                }
+            }
+        }
+
+        private string _value = "5134";
+
+        public string Value
+        {
+            get { return _value; }
+            set
+            {
+                if (value != _value)
+                {
+                    _value = value;
+                    OnPropertyChanged("Value");
+                }
+            }
+        }
+
+        private string _op = "replace";
+
+        public string Op
+        {
+            get { return _op; }
+            set
+            {
+                if (value != _op)
+                {
+                    _op = value;
+                    OnPropertyChanged("Op");
+                }
+            }
+        }
+
+        private string _company = "yourcompany";
+
+        public string Company
+        {
+            get { return _company; }
+            set
+            {
+                if (value != _company)
+                {
+                    _company = value;
+                    OnPropertyChanged("Company");
                 }
             }
         }
@@ -274,31 +338,4 @@ namespace SpreadsheetParser
 
         #endregion Events
     }
-
-    #region Helper class
-
-    public class CommandHandler : ICommand
-    {
-        private System.Action _action;
-        private bool _canExecute;
-        public CommandHandler(System.Action action, bool canExecute)
-        {
-            _action = action;
-            _canExecute = canExecute;
-        }
-
-        public bool CanExecute(object parameter)
-        {
-            return _canExecute;
-        }
-
-        public event EventHandler CanExecuteChanged;
-
-        public void Execute(object parameter)
-        {
-            _action();
-        }
-    }
-
-    #endregion Helper class
 }
