@@ -10,22 +10,29 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SpreadsheetParser
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SpreadsheetParser.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SpreadsheetParserHelper : Window
     {
-        public MainWindow()
+        public SpreadsheetParserHelper()
         {
             InitializeComponent();
             this.DataContext = _vm;
         }
 
-        private ViewModel _vm = new ViewModel();
+        private VMSpreadsheetParser _vm = new VMSpreadsheetParser();
+
+        private void TextBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 3)
+            {
+                myTextBox.SelectAll();
+            }
+        }
     }
 }

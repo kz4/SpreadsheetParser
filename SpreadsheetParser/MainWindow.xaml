@@ -21,26 +21,12 @@
             <ColumnDefinition Width="200" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="File Name:"/>
-        <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal">
-            <Button Command="{Binding BrowseCommand}" HorizontalAlignment="Left" 
-            MinWidth="40" Margin="10 3 3 3" Content="Browse"  />
+        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+            <Button Command="{Binding SpreadSheetParserCommand}" HorizontalAlignment="Left"
+            MinWidth="40" Margin="10 3 3 3" Content="Spreadsheet Parser"  />
             <Button Command="{Binding CwHelperCommand}" HorizontalAlignment="Left" 
             MinWidth="40" Margin="10 3 3 3" Content="CW Helper"  />
         </StackPanel>
-        <Label Grid.Row="1" Grid.Column="0" Content="Column:"/>
-        <Label Grid.Row="2" Grid.Column="0" Content="Start Row:"/>
-        <Label Grid.Row="3" Grid.Column="0" Content="End Row:"/>
-        <Label Grid.Row="4" Grid.Column="0" Content="Number in a Row:"/>
-        <TextBox Grid.Column="1" Grid.Row="0" Margin="3" Text="{Binding Path=FileName}" />
-        <TextBox Grid.Column="1" Grid.Row="1" Margin="3" Text="{Binding Path=Column}" />
-        <TextBox Grid.Column="1" Grid.Row="2" Margin="3" Text="{Binding Path=StartRow}" />
-        <TextBox Grid.Column="1" Grid.Row="3" Margin="3" Text="{Binding Path=EndRow}" />
-        <TextBox Grid.Column="1" Grid.Row="4" Margin="3" Text="{Binding Path=NumARow}" />
-        <Button Command="{Binding ClickCommand}" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Right" 
-            MinWidth="80" Margin="3" Content="Parse"  />
-        <TextBox Name="myTextBox" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="6" Margin="3"
-                 Text="{Binding Path=Result}" PreviewMouseDown="TextBox_PreviewMouseDown"
-                 TextWrapping="Wrap"/>
+
     </Grid>
 </Window>
