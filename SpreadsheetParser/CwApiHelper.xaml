@@ -20,6 +20,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="28" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -38,25 +39,27 @@
         <Label Grid.Row="3" Grid.Column="0" Content="End Row:"/>
         <Label Grid.Row="4" Grid.Column="0" Content="Base Url:"/>
         <Label Grid.Row="5" Grid.Column="0" Content="Site Url:"/>
-        <Label Grid.Row="6" Grid.Column="0" Content="Op:"/>
-        <Label Grid.Row="7" Grid.Column="0" Content="Path:"/>
-        <Label Grid.Row="8" Grid.Column="0" Content="Value:"/>
-        <Label Grid.Row="9" Grid.Column="0" Content="Company:"/>
-        <Label Grid.Row="10" Grid.Column="0" Content="Public Key:"/>
-        <Label Grid.Row="11" Grid.Column="0" Content="Private Key:"/>
+        <Label Grid.Row="6" Grid.Column="0" Content="Site Suffix:"/>
+        <Label Grid.Row="7" Grid.Column="0" Content="Op:"/>
+        <Label Grid.Row="8" Grid.Column="0" Content="Path:"/>
+        <Label Grid.Row="9" Grid.Column="0" Content="Value:"/>
+        <Label Grid.Row="10" Grid.Column="0" Content="Company:"/>
+        <Label Grid.Row="11" Grid.Column="0" Content="Public Key:"/>
+        <Label Grid.Row="12" Grid.Column="0" Content="Private Key:"/>
         <TextBox Grid.Column="1" Grid.Row="0" Margin="3" Text="{Binding Path=FileName}" />
         <TextBox Grid.Column="1" Grid.Row="1" Margin="3" Text="{Binding Path=Column}" />
         <TextBox Grid.Column="1" Grid.Row="2" Margin="3" Text="{Binding Path=StartRow}" />
         <TextBox Grid.Column="1" Grid.Row="3" Margin="3" Text="{Binding Path=EndRow}" />
         <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Margin="3" Text="{Binding Path=BaseUrl}" />
         <TextBox Grid.Column="1" Grid.Row="5" Margin="4,3,2,3" Text="{Binding Path=SiteUrl}" />
-        <TextBox Grid.Column="1" Grid.Row="6" Margin="4,3,2,3" Text="{Binding Path=Op}" />
-        <TextBox Grid.Column="1" Grid.Row="7" Margin="3" Text="{Binding Path=Path}" />
-        <TextBox Grid.Column="1" Grid.Row="8" Margin="3" Text="{Binding Path=Value}" />
-        <TextBox Grid.Column="1" Grid.Row="9" Margin="3" Text="{Binding Path=Company}" />
-        <TextBox Grid.Column="1" Grid.Row="10" Margin="3" Text="{Binding Path=PublicKey}" />
-        <TextBox Grid.Column="1" Grid.Row="11" Margin="3" Text="{Binding Path=PrivateKey}" />
-        <Button Command="{Binding ClickCommand}" Grid.Column="1" Grid.Row="12" HorizontalAlignment="Right"
+        <TextBox Grid.Column="1" Grid.Row="6" Margin="4,3,2,3" Text="{Binding Path=SiteSuffix}" />
+        <TextBox Grid.Column="1" Grid.Row="7" Margin="4,3,2,3" Text="{Binding Path=Op}" />
+        <TextBox Grid.Column="1" Grid.Row="8" Margin="3" Text="{Binding Path=Path}" />
+        <TextBox Grid.Column="1" Grid.Row="9" Margin="3" Text="{Binding Path=Value}" />
+        <TextBox Grid.Column="1" Grid.Row="10" Margin="3" Text="{Binding Path=Company}" />
+        <TextBox Grid.Column="1" Grid.Row="11" Margin="3" Text="{Binding Path=PublicKey}" />
+        <TextBox Grid.Column="1" Grid.Row="12" Margin="3" Text="{Binding Path=PrivateKey}" />
+        <Button Command="{Binding ClickCommand}" Grid.Column="1" Grid.Row="13" HorizontalAlignment="Right"
             MinWidth="80" Margin="3" Content="Submit"  />
      
     </Grid>

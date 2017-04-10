@@ -16,7 +16,7 @@ namespace SpreadsheetParser
     {
         #region Commands
 
-        #region Parse Button
+        #region Submit Button
 
         private ICommand _clickCommand;
         public ICommand ClickCommand
@@ -62,7 +62,7 @@ namespace SpreadsheetParser
                 {
                     try
                     {
-                        IConnectWiseService _connectWiseService = new ConnectWiseService(Company, BaseUrl, SiteUrl, PublicKey, PrivateKey);
+                        IConnectWiseService _connectWiseService = new ConnectWiseService(Company, BaseUrl, SiteUrl, SiteSuffix, PublicKey, PrivateKey);
                         //var res = _connectWiseService.ChangeCompany(Convert.ToInt32(ticketId), Value).Result;
                         var res = _connectWiseService.ChangeGenerically(Convert.ToInt32(ticketId), Value, Op, Path).Result;
                     }
@@ -96,7 +96,7 @@ namespace SpreadsheetParser
             return sum;
         }
 
-        #endregion Parse Button
+        #endregion Submit Button
 
         #region Browse Button
 
@@ -241,6 +241,21 @@ namespace SpreadsheetParser
                 {
                     _siteUrl = value;
                     OnPropertyChanged("SiteUrl");
+                }
+            }
+        }
+
+        private string _siteSuffix = "";
+
+        public string SiteSuffix
+        {
+            get { return _siteSuffix; }
+            set
+            {
+                if (value != _siteSuffix)
+                {
+                    _siteSuffix = value;
+                    OnPropertyChanged("SiteSuffix");
                 }
             }
         }

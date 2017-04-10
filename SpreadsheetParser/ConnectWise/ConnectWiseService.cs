@@ -21,11 +21,11 @@ namespace SpreadsheetParser.ConnectWise
 
         #region Constructor
 
-        public ConnectWiseService(string companyId, string baseUrl, string siteUrl, string publicKey, string privateKey)
+        public ConnectWiseService(string companyId, string baseUrl, string siteUrl, string siteSuffix, string publicKey, string privateKey)
         {
             LogManager.ThrowExceptions = true;
             _log = LogManager.GetCurrentClassLogger();
-            _settings = new ApiSettings(companyId, baseUrl, siteUrl, publicKey, privateKey);
+            _settings = new ApiSettings(companyId, baseUrl, siteUrl, siteSuffix, publicKey, privateKey);
             InitHttpClient();
         }
 
@@ -157,7 +157,7 @@ namespace SpreadsheetParser.ConnectWise
 
         private async Task<Ticket> PatchTicket(int ticketId, PatchOperation operation)
         {
-            return await PatchItem<Ticket>(new[] { operation }, _settings.TicketsUri + "/" + ticketId);
+            return await PatchItem<Ticket>(new[] { operation }, _settings.TicketsUri + "/" + ticketId + "/" + _settings.SuffitxUri);
         }
 
         public async Task<Ticket> CancelTicket(int ticketId)
@@ -196,14 +196,16 @@ namespace SpreadsheetParser.ConnectWise
         public string PrivateKey { get; }
         public string ApiBaseUri { get; }
         public string TicketsUri { get; }
+        public string SuffitxUri { get; }
 
-        public ApiSettings(string companyId, string baseUrl, string siteUrl, string publicKey, string privateKey)
+        public ApiSettings(string companyId, string baseUrl, string siteUrl, string suffixUrl, string publicKey, string privateKey)
         {
             CompanyId = companyId;
             PublicKey = publicKey;
             PrivateKey = privateKey;
             ApiBaseUri = baseUrl;
             TicketsUri = siteUrl;
+            SuffitxUri = suffixUrl;
         }
     }
 
